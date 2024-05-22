@@ -3,7 +3,7 @@
 {
     'name' : 'Odoo Purchase Vendor Signature',
     'version' : '1.0',
-    'summary': 'Provide a feature for vendor to priview and sign',
+    'summary': 'Provide a feature for vendor to preview and sign',
     'sequence': 1,
     'description': """
     Enable vendor to sign purchase quotation by their own side
