@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <template id="purchase_portal_my_home_menu_purchase" name="Portal layout : purchase menu entries" inherit_id="purchase.portal_my_purchase_order" priority="25">
+    <xpath expr="//div[hasclass('o_download_pdf')]" position="before">  
+      <t t-if="order.state not in ['purchase', 'cancel', 'done']">    
+        <a role="button" class="btn btn-primary btn-block mb8" data-toggle="modal" data-target="#modalaccept" href="#">
+          <i class="fa fa-check"/>Accept &amp; Sign
+        </a>
+      </t>
+    </xpath>
+    <xpath expr="//div[hasclass('o_portal_purchase_sidebar')]" position="inside">
+
+      <!-- Page content -->
+
+      <div id="quote_content" class="col-12 col-lg justify-content-end">
+
+        <!-- modal relative to the actions sign and pay -->
+        <div role="dialog" class="modal fade" id="modalaccept">
+            <div class="modal-dialog" t-if="order.has_to_be_signed(True)">
+                <form id="accept" method="POST" t-att-data-order-id="order.id" t-att-data-token="order.access_token" class="js_accept_json modal-content js_website_submit_form">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <header class="modal-header">
+                        <h4 class="modal-title">Validate Order</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">×</button>
+                    </header>
+                    <main class="modal-body" id="sign-dialog">
+                        <p>
+                            <span>By signing this proposal, I agree to the following terms:</span>
+                            <ul>
+                                <li><span>Accepted on the behalf of:</span> <b t-field="order.partner_id.commercial_partner_id"/></li>
+                                <li><span>For an amount of:</span> <b data-id="total_amount" t-field="order.amount_total"/></li>
+                                <li t-if="order.payment_term_id"><span>With payment terms:</span> <b t-field="order.payment_term_id.note"/></li>
+                            </ul>
+                        </p>
+                        <t t-call="portal.signature_form">
+                          <t t-set="call_url" t-value="order.get_portal_url(suffix='/accept')"/>
+                          <t t-set="default_name" t-value="'test_name'"/>
+                      </t>
+                    </main>
+                </form>
+            </div>
+            
+        </div>
+
+              <!-- status messages -->
+        <div t-if="message == 'sign_ok'" class="alert alert-success alert-dismissable d-print-none" role="status">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">×</button>
+            <strong>Thank You!</strong><br/>
+            <t t-if="message == 'sign_ok' and order.state in ['purchase']">Your order has been confirmed.</t>
+            <t t-elif="message == 'sign_ok' and order.has_to_be_paid()">Your order has been signed but still needs to be paid to be confirmed.</t>
+            <t t-else="">Your order has been signed.</t>
+        </div>
+              
+      </div><!-- // #quote_content -->
+
+    
+    </xpath>
+
+  </template>
+
+</odoo>
