@@ -10,7 +10,7 @@
     """,
     'category': 'Web',
     'website': '',
-    'images' : [],
+    'images' : ['images/purchase_form.png'],
     'depends' : [
         'base',
         'sale_management',
