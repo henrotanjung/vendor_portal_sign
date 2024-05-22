@@ -10,13 +10,13 @@
     """,
     'category': 'Web',
     'website': '',
-    'images' : ['images/purchase_form.png'],
-    'price': 49.99,
-    'currency': 'USD',
+    'images' : ['images/purchase_form.png', 'images/portal_purchase.png', 'images/sign.png'],
+    # 'price': 49.99,
+    # 'currency': 'USD',
     'depends' : [
-        'base',
-        'sale_management',
-        'portal',
+        # 'base',
+        # 'sale_management',
+        # 'portal',
         'purchase',
         ],
     'data': [
@@ -30,7 +30,7 @@
     'qweb': [],
       
     'installable': True,
-    'application': True,
+    'application': False,
     'auto_install': False,
     'license': 'OPL-1',
 }
