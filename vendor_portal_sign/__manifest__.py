@@ -6,11 +6,13 @@
     'summary': 'Provide a feature for vendor to priview and sign',
     'sequence': 1,
     'description': """
-    Gsi Help
+    Enable vendor to sign purchase quotation by their own side
     """,
     'category': 'Web',
     'website': '',
     'images' : ['images/purchase_form.png'],
+    'price': 49.99,
+    'currency': 'USD',
     'depends' : [
         'base',
         'sale_management',
